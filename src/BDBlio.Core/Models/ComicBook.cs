@@ -17,10 +17,10 @@ public class ComicBook
     [MaxLength(255)]
     public string? Publisher { get; set; }
 
-    [MaxLength(50)]
+    [MaxLength(255)]
     public string? Series { get; set; }
 
-    [MaxLength(50)]
+    [MaxLength(100)]
     public string? Collection { get; set; }
 
     public int? Volume { get; set; }
@@ -33,7 +33,7 @@ public class ComicBook
 
     public DateTime? PublicationDate { get; set; }
 
-    [MaxLength(1000)]
+    [MaxLength(2000)]
     public string? Description { get; set; }
 
     public string? CoverImageUrl { get; set; }
@@ -41,12 +41,15 @@ public class ComicBook
     public decimal? Price { get; set; }
 
     [MaxLength(50)]
-    public string? Language { get; set; }
+    public string? Language { get; set; } = "Français";
 
     public int? PageCount { get; set; }
 
-    public DateTime CreatedAt { get; set; } = DateTime.Now;
-    public DateTime UpdatedAt { get; set; } = DateTime.Now;
+    [MaxLength(1000)]
+    public string? Notes { get; set; }
+
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 
     // Navigation property
     public ICollection<Rating> Ratings { get; set; } = new List<Rating>();
