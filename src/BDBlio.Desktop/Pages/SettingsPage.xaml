@@ -1,0 +1,139 @@
+<Page x:Class="BDBlio.Desktop.SettingsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:BDBlio.Desktop"
+      mc:Ignorable="d"
+      Title="Paramètres"
+      Background="#1E1E1E"
+      Foreground="#FFFFFF">
+    <ScrollViewer>
+        <StackPanel Padding="30" Spacing="20">
+            <TextBlock Text="⚙️ Paramètres" 
+                       FontSize="24" 
+                       FontWeight="Bold" 
+                       Foreground="#6B5AED"/>
+
+            <!-- Section Export -->
+            <Border Background="#2D2D2D" 
+                    BorderBrush="#6B5AED" 
+                    BorderThickness="1" 
+                    CornerRadius="8" 
+                    Padding="20">
+                <StackPanel Spacing="15">
+                    <TextBlock Text="💾 Exporter votre bibliothèque" 
+                               FontSize="16" 
+                               FontWeight="Bold" 
+                               Foreground="#00D9FF"/>
+                    <TextBlock Text="Téléchargez votre bibliothèque au format CSV ou Excel" 
+                               Foreground="#B0B0B0"
+                               TextWrapping="Wrap"/>
+                    <Button Content="📥 Exporter en CSV" 
+                            Style="{StaticResource ModernButtonStyle}" 
+                            Command="{Binding ExportLibraryCommand}"
+                            Height="40"/>
+                    <Button Content="📥 Exporter en Excel" 
+                            Style="{StaticResource ModernButtonStyle}" 
+                            Command="{Binding ExportLibraryCommand}"
+                            Height="40"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Section Import -->
+            <Border Background="#2D2D2D" 
+                    BorderBrush="#6B5AED" 
+                    BorderThickness="1" 
+                    CornerRadius="8" 
+                    Padding="20">
+                <StackPanel Spacing="15">
+                    <TextBlock Text="📤 Importer une bibliothèque" 
+                               FontSize="16" 
+                               FontWeight="Bold" 
+                               Foreground="#00D9FF"/>
+                    <TextBlock Text="Importez vos BD depuis un fichier CSV ou Excel. Les colonnes seront configurables." 
+                               Foreground="#B0B0B0"
+                               TextWrapping="Wrap"/>
+                    <Button Content="📤 Importer" 
+                            Style="{StaticResource ModernButtonStyle}" 
+                            Command="{Binding ImportLibraryCommand}"
+                            Height="40"/>
+
+                    <!-- Configuration de mappage -->
+                    <StackPanel Spacing="10" 
+                                Visibility="{Binding AvailableColumns.Count, Converter={StaticResource CountToVisibilityConverter}}">
+                        <TextBlock Text="🔗 Configuration du mappage" 
+                                   FontSize="14" 
+                                   FontWeight="Bold" 
+                                   Foreground="#B833F0"/>
+                        <TextBlock Text="Sélectionnez les colonnes à importer (toutes optionnelles)" 
+                                   Foreground="#B0B0B0"/>
+                        <ItemsControl ItemsSource="{Binding AvailableColumns}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="0,5">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="150"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="{Binding}" 
+                                                   Foreground="#B0B0B0"
+                                                   VerticalAlignment="Center"/>
+                                        <ComboBox Grid.Column="1" 
+                                                  Background="#3D3D3D" 
+                                                  Foreground="#FFFFFF" 
+                                                  BorderBrush="#6B5AED"
+                                                  Margin="10,0,0,0">
+                                            <ComboBoxItem>-- Non utilisée --</ComboBoxItem>
+                                            <ComboBoxItem>Titre</ComboBoxItem>
+                                            <ComboBoxItem>Auteur</ComboBoxItem>
+                                            <ComboBoxItem>Éditeur</ComboBoxItem>
+                                            <ComboBoxItem>Série</ComboBoxItem>
+                                            <ComboBoxItem>Collection</ComboBoxItem>
+                                            <ComboBoxItem>Tome</ComboBoxItem>
+                                            <ComboBoxItem>ISBN</ComboBoxItem>
+                                            <ComboBoxItem>EAN</ComboBoxItem>
+                                            <ComboBoxItem>Prix</ComboBoxItem>
+                                            <ComboBoxItem>Pages</ComboBoxItem>
+                                        </ComboBox>
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        <Button Content="✅ Confirmer l'importation" 
+                                Style="{StaticResource ModernButtonStyle}" 
+                                Height="40"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Section Informations -->
+            <Border Background="#2D2D2D" 
+                    BorderBrush="#6B5AED" 
+                    BorderThickness="1" 
+                    CornerRadius="8" 
+                    Padding="20">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="ℹ️ Informations" 
+                               FontSize="16" 
+                               FontWeight="Bold" 
+                               Foreground="#00D9FF"/>
+                    <TextBlock Text="BDBlio v1.0" 
+                               Foreground="#B0B0B0"/>
+                    <TextBlock Text="Gestionnaire de Bibliothèque de Bandes Dessinées" 
+                               Foreground="#B0B0B0"/>
+                    <TextBlock Text="© 2024 - Tous droits réservés" 
+                               Foreground="#909090"
+                               FontSize="11"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Message de statut -->
+            <TextBlock Text="{Binding StatusMessage}" 
+                       FontSize="12" 
+                       FontWeight="Bold"
+                       Foreground="#00D9FF"
+                       TextWrapping="Wrap"/>
+        </StackPanel>
+    </ScrollViewer>
+</Page>
